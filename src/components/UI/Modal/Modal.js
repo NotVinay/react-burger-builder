@@ -5,13 +5,16 @@ import BackDrop from "../Backdrop/Backdrop";
 
 class modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.show !== this.props.show;
+    return (
+      nextProps.show !== this.props.show ||
+      nextProps.children !== this.props.children
+    );
   }
 
   render() {
     return (
       <Aux>
-        <BackDrop show={this.props.show} clicked={this.props.purchaseHandler} />
+        <BackDrop show={this.props.show} clicked={this.props.clicked} />
         <div
           className={styles.Modal}
           style={{
