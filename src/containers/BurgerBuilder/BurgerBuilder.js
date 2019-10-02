@@ -6,10 +6,9 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHander/withErrorHandler";
-
-//import axios from "../../axios-orders";
 import axios from "axios";
 
+//import axios from "../../axios-orders";
 const INGREDIENT_PRICES = {
   Salad: 0.5,
   Cheese: 0.4,
@@ -40,13 +39,16 @@ class BurgerBuilder extends Component {
       });
   }
   purchaseHandler = bool => {
-    console.log("clicked");
     this.setState({ purchasing: bool });
   };
 
   continuePurchase = () => {
     //console.log("Purchase Continued");
     this.setState({ loading: true });
+    this.props.history.push("/checkout", {
+      ingredients: { ...this.state.ingredients },
+      price: this.state.totalPrice
+    });
     // const data = {
     //   ingredients: this.state.ingredients,
     //   price: this.state.price,
@@ -61,16 +63,16 @@ class BurgerBuilder extends Component {
     //   },
     //   deliveryMode: "fastest"
     // };
-    axios
-      .get("https://www.asdasmocky.io/v2/5d8f7bf93200005600adec70")
-      .then(response => {
-        console.log("Res", response);
-        this.setState({ loading: false, purchasing: false });
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ loading: false, purchasing: false });
-      });
+    // axios
+    //   .get("https://www.asdasmocky.io/v2/5d8f7bf93200005600adec70")
+    //   .then(response => {
+    //     console.log("Res", response);
+    //     this.setState({ loading: false, purchasing: false });
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //     this.setState({ loading: false, purchasing: false });
+    //   });
   };
 
   updatePurchaseState = newIngredients => {
@@ -129,7 +131,7 @@ class BurgerBuilder extends Component {
         </Aux>
       );
 
-      let orderSummary = (
+      orderSummary = (
         <OrderSummary
           ingredients={this.state.ingredients}
           purchaseHandler={this.purchaseHandler}
@@ -145,6 +147,7 @@ class BurgerBuilder extends Component {
     return (
       <Aux>
         <Modal show={this.state.purchasing} clicked={this.purchaseHandler}>
+          Modal
           {orderSummary}
         </Modal>
         {burger}
