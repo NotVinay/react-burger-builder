@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { updateObject, checkValidity } from "../../../shared/Utility";
 import Input from "../../../components/UI/Input/Input";
 import styles from "./Contactdata.module.css";
+import { connect } from "react-redux";
 
 class contactdata extends Component {
   state = {
@@ -162,4 +163,10 @@ class contactdata extends Component {
   }
 }
 
-export default contactdata;
+const mapStateToProps = state => {
+  return {
+    ingredients: state.ingredients,
+    price: state.totalPrice
+  };
+};
+export default connect(mapStateToProps)(contactdata);
