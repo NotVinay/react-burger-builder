@@ -3,6 +3,10 @@ import { updateObject, checkValidity } from "../../../shared/Utility";
 import Input from "../../../components/UI/Input/Input";
 import styles from "./Contactdata.module.css";
 import { connect } from "react-redux";
+import withErrorHandler from "../../../hoc/withErrorHander/withErrorHandler";
+import Axios from "axios";
+import * as actionCreators from "../../../store/actions/index";
+import Spinner from "../../../components/UI/Spinner/Spinner";
 
 class contactdata extends Component {
   state = {
@@ -111,6 +115,7 @@ class contactdata extends Component {
       price: this.props.price,
       orderData: formData
     };
+    this.props.onOrderBurger(order);
   };
 
   inputChangedHandler = (event, inputIdentifier) => {
@@ -137,36 +142,51 @@ class contactdata extends Component {
   };
 
   render() {
-    return (
-      <div className={styles.Contactdata}>
-        <form onSubmit={this.orderHandler}>
-          {Object.keys(this.state.orderForm).map(igKey => {
-            const obj = this.state.orderForm[igKey];
-            return (
-              // <div key={igKey} />
-              <Input
-                key={igKey}
-                elementType={obj.elementType}
-                name={igKey}
-                value={obj.value}
-                elementConfig={obj.elementConfig}
-                invalid={!obj.valid}
-                shouldValidate={obj.validation}
-                touched={obj.touched}
-                changed={event => this.inputChangedHandler(event, igKey)}
-              />
-            );
-          })}
-        </form>
-      </div>
+    let form = (
+      <form onSubmit={this.orderHandler}>
+        {Object.keys(this.state.orderForm).map(igKey => {
+          const obj = this.state.orderForm[igKey];
+          return (
+            // <div key={igKey} />
+            <Input
+              key={igKey}
+              elementType={obj.elementType}
+              name={igKey}
+              value={obj.value}
+              elementConfig={obj.elementConfig}
+              invalid={!obj.valid}
+              shouldValidate={obj.validation}
+              touched={obj.touched}
+              changed={event => this.inputChangedHandler(event, igKey)}
+            />
+          );
+        })}
+        <button>Submit</button>
+      </form>
     );
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+    return <div className={styles.Contactdata}>{form}</div>;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.ingredients,
-    price: state.totalPrice
+    ingredients: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    loading: state.order.loading
   };
 };
-export default connect(mapStateToProps)(contactdata);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onOrderBurger: orderData =>
+      dispatch(actionCreators.purchaseBurger(orderData))
+    // onPurchaseBurgerStart: () => dispatch(actionCreators.purchaseBurgerStart())
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(contactdata, Axios));

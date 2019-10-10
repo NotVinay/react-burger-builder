@@ -4,7 +4,14 @@ import styles from "./Order.module.css";
 const Order = props => {
   return (
     <div className={styles.Order}>
-      Ingredients:
+      Ingredients:{" "}
+      {Object.keys(props.ingredients).map(igKey => {
+        return (
+          <span key={igKey}>
+            {igKey}({props.ingredients[igKey]}){" "}
+          </span>
+        );
+      })}
       <p>Price: {props.price}</p>
     </div>
   );
