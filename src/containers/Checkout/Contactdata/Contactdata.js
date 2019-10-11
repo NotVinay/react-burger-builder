@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { updateObject, checkValidity } from "../../../shared/Utility";
 import Input from "../../../components/UI/Input/Input";
+import Button from "../../../components/UI/Button/Button";
 import styles from "./Contactdata.module.css";
 import { connect } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHander/withErrorHandler";
@@ -161,7 +162,9 @@ class contactdata extends Component {
             />
           );
         })}
-        <button>Submit</button>
+        <div style={{ margin: "auto" }}>
+          <Button type="Success">Submit</Button>
+        </div>
       </form>
     );
     if (this.props.loading) {
@@ -186,6 +189,7 @@ const mapDispatchToProps = dispatch => {
     // onPurchaseBurgerStart: () => dispatch(actionCreators.purchaseBurgerStart())
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

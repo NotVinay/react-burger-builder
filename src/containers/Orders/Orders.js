@@ -6,38 +6,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Orders extends Component {
   componentDidMount() {
-    // const orders = {
-    //   order1: {
-    //     ingredients: { Cheese: 0, Salad: 1, Meat: 0, Bacon: 1 },
-    //     price: 4.5,
-    //     customer: {
-    //       name: "Jon Snow",
-    //       address: {
-    //         street: "Road to Wall",
-    //         zipcode: "31231",
-    //         country: "Winterfell"
-    //       },
-    //       email: "xyz@email.com"
-    //     },
-    //     deliveryMode: "fastest"
-    //   },
-    //   order2: {
-    //     ingredients: { Cheese: 1, Salad: 1, Meat: 0, Bacon: 1 },
-    //     price: 5.3,
-    //     customer: {
-    //       name: "Jon Snow",
-    //       address: {
-    //         street: "Road to Wall",
-    //         zipcode: "31231",
-    //         country: "Winterfell"
-    //       },
-    //       email: "xyz@email.com"
-    //     },
-    //     deliveryMode: "fastest"
-    //   }
-    // };
-    //console.log(JSON.stringify(orders));
-    this.props.onFetchOrders();
+    this.props.onFetchOrders(this.props.token);
   }
 
   render() {
@@ -58,12 +27,13 @@ class Orders extends Component {
 }
 const mapStateToProps = state => {
   return {
-    orders: state.order.orders
+    orders: state.order.orders,
+    token: state.auth.token
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: () => dispatch(actionCreators.fetchOrdersInit())
+    onFetchOrders: token => dispatch(actionCreators.fetchOrdersInit(token))
   };
 };
 

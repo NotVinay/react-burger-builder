@@ -1,11 +1,12 @@
 import * as actionTypes from "../actions/actionsTypes";
-import * as utilities from "../utility";
+import * as utilities from "../../shared/Utility";
 
 const initialState = {
   orders: [],
   loading: false,
   purchasing: false
 };
+
 const purchaseBurgerSuccess = (state, action) => {
   const orderData = utilities.updateObject(action.orderData, {
     id: action.orderId

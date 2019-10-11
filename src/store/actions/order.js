@@ -58,16 +58,20 @@ const fetchOrdersStart = () => {
     type: actionTypes.FETCH_ORDERS_START
   };
 };
-export const fetchOrdersInit = () => {
+export const fetchOrdersInit = token => {
   return dispatch => {
     dispatch(fetchOrdersStart());
-    axios
-      .get("https://www.mocky.io/v2/5d9e72bf3200008d07329d8e")
-      .then(res => {
-        dispatch(fetchOrdersSuccess(res.data));
-      })
-      .catch(err => {
-        dispatch(fetchOrdersFailed("Error"));
-      });
+    if (token) {
+      axios
+        .get("https://www.mocky.io/v2/5d9e72bf3200008d07329d8e")
+        .then(res => {
+          dispatch(fetchOrdersSuccess(res.data));
+        })
+        .catch(err => {
+          dispatch(fetchOrdersFailed("Error"));
+        });
+    } else {
+      dispatch(fetchOrdersFailed("Not Authenticated"));
+    }
   };
 };
