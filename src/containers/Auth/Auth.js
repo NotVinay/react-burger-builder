@@ -6,6 +6,7 @@ import * as utilities from "../../shared/Utility";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 import { Redirect } from "react-router-dom";
+import styles from "./Auth.module.css";
 
 class auth extends Component {
   state = {
@@ -95,7 +96,7 @@ class auth extends Component {
     let form = <Spinner />;
     if (!this.props.loading) {
       form = (
-        <form onSubmit={this.authenticate}>
+        <form onSubmit={this.authenticate} className={styles.Auth}>
           {Object.keys(this.state.controls).map(igKey => {
             const obj = this.state.controls[igKey];
             return (

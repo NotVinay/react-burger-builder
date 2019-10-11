@@ -2,7 +2,7 @@ import React from "react";
 import Burger from "../../Burger/Burger";
 import Button from "../../UI/Button/Button";
 import { Link } from "react-router-dom";
-
+import styles from "./CheckoutSummary.module.css";
 const checkoutSummary = props => {
   let summary = (
     <div>
@@ -20,7 +20,7 @@ const checkoutSummary = props => {
     });
 
     summary = (
-      <div>
+      <div className={styles.CheckoutSummary}>
         <h2>We hope it tastes Well</h2>
         <Burger ingredients={props.ingredients} />
         <div>

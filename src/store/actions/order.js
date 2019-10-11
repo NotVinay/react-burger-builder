@@ -25,11 +25,9 @@ const purchaseBurgerFailed = error => {
 export const purchaseBurger = orderData => {
   return dispatch => {
     // replace it to post the data to server
-    console.log("Purchasing");
     dispatch(purchaseBurgerStart());
     setTimeout(() => {
       dispatch(purchaseBurgerSucess(Math.random(), orderData));
-      console.log();
     }, 2000);
   };
 };

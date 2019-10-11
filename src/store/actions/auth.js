@@ -39,7 +39,6 @@ export const logout = () => {
 const checkAuthTimeout = () => {
   return dispatch => {
     setTimeout(() => {
-      console.log("Logged Out");
       dispatch(logout());
     }, 3600000);
   };
@@ -53,14 +52,12 @@ export const authInit = (email, password, isSignUp) => {
       setTimeout(() => {
         dispatch(authSuccess(Math.random(), email));
         dispatch(checkAuthTimeout());
-        console.log("Successfully SignedUp");
       }, 2000);
     } else {
       setTimeout(() => {
         if (email === "test@test.com" && password === "test") {
           dispatch(authSuccess(Math.random(), email));
           dispatch(checkAuthTimeout());
-          console.log("Successfully Loggedin");
         } else {
           dispatch(authFailed("Incorrect Details"));
         }
@@ -71,7 +68,6 @@ export const authInit = (email, password, isSignUp) => {
 
 export const authCheckState = () => {
   return dispatch => {
-    console.log("authCheck", localStorage.getItem("token"));
     const token = localStorage.getItem("token");
     if (!token) {
       dispatch(logout);

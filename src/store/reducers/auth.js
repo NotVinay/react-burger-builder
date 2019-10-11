@@ -12,7 +12,6 @@ const authStart = (state, action) => {
   return utilities.updateObject(state, { loading: true, error: false });
 };
 const authFailed = (state, action) => {
-  console.log("Failed");
   return utilities.updateObject(state, { loading: false, error: action.error });
 };
 const authSuccess = (state, action) => {

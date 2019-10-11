@@ -32,33 +32,8 @@ class BurgerBuilder extends Component {
   };
 
   continuePurchase = () => {
-    //console.log("Purchase Continued");
     this.props.onPurchaseBurgerInit();
     this.props.history.push("/checkout");
-    // const data = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.price,
-    //   customer: {
-    //     name: "Jon Snow",
-    //     address: {
-    //       street: "Road to Wall",
-    //       zipcode: "31231",
-    //       country: "Winterfell"
-    //     },
-    //     email: "xyz@email.com"
-    //   },
-    //   deliveryMode: "fastest"
-    // };
-    // axios
-    //   .get("https://www.asdasmocky.io/v2/5d8f7bf93200005600adec70")
-    //   .then(response => {
-    //     console.log("Res", response);
-    //     this.setState({ loading: false, purchasing: false });
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //     this.setState({ loading: false, purchasing: false });
-    //   });
   };
 
   updatePurchaseState = newIngredients => {
@@ -80,7 +55,6 @@ class BurgerBuilder extends Component {
     ) : (
       <Spinner />
     );
-    console.log(this.props.ingredients);
     if (this.props.ingredients) {
       burger = (
         <Aux>

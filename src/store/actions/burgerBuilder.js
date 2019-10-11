@@ -28,7 +28,6 @@ export const initIngredients = () => {
     axios
       .get("https://www.mocky.io/v2/5d8f7bf93200005600adec70")
       .then(response => {
-        console.log("Res", response.data);
         dispatch(setIngredients(response.data));
       })
       .catch(error => {
