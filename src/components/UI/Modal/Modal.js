@@ -3,7 +3,7 @@ import styles from "./Modal.module.css";
 import Aux from "../../../hoc/Aux/Aux";
 import BackDrop from "../Backdrop/Backdrop";
 
-class modal extends Component {
+const modal = props => {
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextProps.show !== this.props.show ||
@@ -11,22 +11,21 @@ class modal extends Component {
     );
   }
 
-  render() {
     return (
       <Aux>
-        <BackDrop show={this.props.show} clicked={this.props.clicked} />
+        <BackDrop show={props.show} clicked={props.clicked} />
         <div
           className={styles.Modal}
           style={{
-            transform: this.props.show ? "translateY(0)" : "translateY(-100vh)",
-            opacity: this.props.show ? "1" : "0"
+            transform: props.show ? "translateY(0)" : "translateY(-100vh)",
+            opacity: props.show ? "1" : "0"
           }}
         >
-          {this.props.children}
+          {props.children}
         </div>
       </Aux>
     );
-  }
 }
 
-export default modal;
+export default React.memo(modal, (prevProps, nextProps) => (nextProps.show === prevProps.show &&
+nextProps.children === prevProps.children));
