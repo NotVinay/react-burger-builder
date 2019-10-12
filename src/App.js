@@ -21,9 +21,11 @@ const Orders = React.lazy(() => {
 });
 
 const App = props => {
+  const { onCheckAuthState } = props;
   useEffect(() => {
     props.onCheckAuthState();
-  }, []);
+  }, [onCheckAuthState]);
+
   let routes = (
     <Switch>
       <Route path="/auth" render={props => <Auth {...props} />} />

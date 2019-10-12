@@ -16,9 +16,10 @@ const BurgerBuilder = props => {
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const { onInitIngredients } = props;
   useEffect(() => {
     props.onInitIngredients();
-  }, []);
+  }, [onInitIngredients]);
 
   const purchaseHandler = bool => {
     if (props.isAuthenticated) {
